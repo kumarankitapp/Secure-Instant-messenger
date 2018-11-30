@@ -1,7 +1,7 @@
 import socket
 import sys
 import threading
-from crypto import *
+
 
 client_buff=4096
 prompt=''
@@ -97,23 +97,7 @@ def main():
 
     server_address = server_ip,server_port
 
-
     message=username_client+','+'SIGN-IN'   #sending SIGN-IN message to register user on the server
-
-    sign_log_in = crypto()
-    public_key,private_key=sign_log_in.rsa_key_pair()
-
-    server_public_key_file=open("public_key.pem","r") #load public key of the server
-
-    #Serialize public key
-    serialize_public_key_server=sign_log_in.public_key_load(server_public_key_file)
-
-    #Encrypt the sign in message for server
-    ciphertext_rsa=sign_log_in.rsa_encryption(serialize_public_key_server,message)
-
-
-
-
     client_socket.sendto(message,((server_address)))
 
 
@@ -152,5 +136,3 @@ def main():
 
 
 main()
-
-

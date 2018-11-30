@@ -1,6 +1,6 @@
 import socket
 import sys
-from crypto import *
+
 
 client_list = {}
 buff=4096
@@ -18,16 +18,8 @@ def server_setup(host_addr):
     server_sock.bind(host_addr)
 
 
-    check_verify_data = crypto()
-
-    server_private_key_file=open("private_key.pem","r") #loading server's private key
-
-    #Serialize private key
-    serialize_private_key_server=check_verify_data.public_key_load(server_private_key_file)
-
-
 def client_details(client_data): #passing all client data in the form username:message
-    print client_data
+    #print client_data
     client_port=client_data.split(',')[3]
     client_port=client_port[:-2]
     client_port=int(client_port.strip())
@@ -41,11 +33,7 @@ def client_details(client_data): #passing all client data in the form username:m
     username=username[2:]
     username=username.strip()
 
-
-
     if client_data.find('SIGN-IN')!=-1:
-
-
 
         if client_list.has_key(username):
            server_sock.sendto("+> User already Signed In", ((client_ip,client_port)))
